@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>National Integrity</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --saffron:#f97316;
+  --white:#ffffff;
+  --green:#16a34a;
+  --blue:#2563eb;
+  --text:#0f172a;
+}
+
+/* GENERAL */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:Poppins,sans-serif;
+  color:var(--text);
+  background:linear-gradient(180deg,#fff7ed,#f9fafb,#ecfdf3);
+  position:relative;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ANIMATED FLAG BACKGROUND */
+.flag-overlay{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:
+    linear-gradient(180deg,var(--saffron) 0%,var(--saffron) 33%,var(--white) 33%,var(--white) 66%,var(--green) 66%,var(--green) 100%);
+  opacity:1;
+  background-size:100% 140%;
+  animation:flagWave 14s ease-in-out infinite alternate;
+}
+@keyframes flagWave{
+  0%{background-position:0% 0%; transform:scale(1);}
+  50%{background-position:0% 20%; transform:scale(1.02);}
+  100%{background-position:0% 40%; transform:scale(1);}
+}
+
+/* FLOATING BLOBS */
+.blob{
+  position:fixed;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.55;
+  z-index:-2;
+  animation:float 18s ease-in-out infinite alternate;
+}
+.blob.one{background:#fed7aa;top:-120px;left:-120px}
+.blob.two{background:#bfdbfe;bottom:-140px;right:-120px}
+.blob.three{background:#bbf7d0;top:45%;left:65%}
+@keyframes float{
+  from{transform:translateY(0) scale(1) rotate(0deg)}
+  to{transform:translateY(-80px) scale(1.05) rotate(5deg)}
+}
+
+/* TOP NAV */
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:20;
+  backdrop-filter:blur(18px);
+  background:linear-gradient(90deg,rgba(255,255,255,0.96),rgba(248,250,252,0.98));
+  border-bottom:1px solid rgba(148,163,184,0.3);
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+.nav-inner{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 22px;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  font-size:13px;
+  color:#4b5563;
+}
+.logo-badge{
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  background:conic-gradient(from 140deg,var(--saffron),var(--blue),var(--green),var(--saffron));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:20px;
+  box-shadow:0 12px 30px rgba(248,113,113,.45);
+  animation:rotate 8s linear infinite;
+}
+@keyframes rotate{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+.nav-links{
+  display:flex;
+  gap:22px;
+  font-size:14px;
+}
+.nav-links a{
+  text-decoration:none;
+  color:#111827;
+  font-weight:500;
+  position:relative;
+  transition:color .3s ease;
+}
+.nav-links a:hover{color:var(--saffron);}
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--saffron),var(--green));
+  transition:.35s ease;
+}
+.nav-links a:hover::after{
+  width:100%;
+}
+
+/* MUSIC BUTTON */
+.music-btn{
+  position:fixed;
+  top:16px;
+  right:20px;
+  padding:8px 18px;
+  border:none;
+  border-radius:999px;
+  background:radial-gradient(circle at 0 0,#fed7aa,#bfdbfe);
+  font-weight:600;
+  cursor:pointer;
+  z-index:25;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 10px 25px rgba(56,189,248,.4);
+  font-size:13px;
+  transition:transform .3s ease;
+}
+.music-btn:hover{transform:scale(1.05);}
+.music-btn-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:24px;
+  height:24px;
+  border-radius:999px;
+  background:rgba(255,255,255,.9);
+}
+.music-btn.playing{
+  box-shadow:0 0 0 0 rgba(37,99,235,.6);
+  animation:pulse 1.4s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(37,99,235,.45)}
+  70%{box-shadow:0 0 0 14px rgba(37,99,235,0)}
+  100%{box-shadow:0 0 0 0 rgba(37,99,235,0)}
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:120px 24px 60px;
+}
+.hero-inner{
+  max-width:880px;
+  animation:fadeInUp 1s ease;
+}
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.hero-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.9);
+  font-size:13px;
+  margin-bottom:14px;
+  box-shadow:0 10px 30px rgba(148,163,184,.35);
+  animation:floatPill 3s ease-in-out infinite;
+}
+@keyframes floatPill{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+.hero h1{
+  font-size:64px;
+  font-weight:800;
+  letter-spacing:.03em;
+  background:linear-gradient(120deg,var(--saffron),var(--blue),var(--green));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  margin:10px 0 16px;
+  animation:gradientShift 5s ease infinite;
+  background-size:200% 200%;
+}
+@keyframes gradientShift{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+.hero p{
+  max-width:850px;
+  font-size:21px;
+  margin:0 auto 26px;
+  color:#374151;
+}
+.hero-sub{
+  font-size:14px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#6b7280;
+}
+
+/* SECTIONS */
+section{
+  max-width:1200px;
+  margin:40px auto 90px;
+  padding:65px;
+  border-radius:36px;
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,0.98),
+    rgba(239,246,255,0.95),
+    rgba(240,253,244,0.95)
+  );
+  backdrop-filter:blur(18px);
+  box-shadow:
+    0 30px 70px rgba(15,23,42,.14),
+    inset 0 0 40px rgba(255,255,255,0.62);
+  border:1px solid rgba(148,163,184,.35);
+  position:relative;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(60px);
+  transition:opacity 1s ease,transform 1s ease;
+}
+section::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,.8);
+  pointer-events:none;
+}
+section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+h2{
+  font-size:42px;
+  background:linear-gradient(90deg,var(--saffron),var(--blue),var(--green));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  margin-top:0;
+}
+p{
+  font-size:18.5px;
+  line-height:1.9;
+}
+
+/* CARDS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px;
+  margin-top:45px;
+}
+.card{
+  padding:30px;
+  border-radius:26px;
+  background:radial-gradient(circle at 0 0,#ffedd5,#dbeafe);
+  background-size:160% 160%;
+  box-shadow:0 18px 45px rgba(15,23,42,.16);
+  transition:transform .45s ease, box-shadow .45s ease, background-position .45s ease;
+  border:1px solid rgba(248,250,252,.9);
+}
+.card h3{
+  margin-top:0;
+  color:var(--saffron);
+  font-size:22px;
+}
+.card:hover{
+  transform:translateY(-14px) scale(1.03);
+  box-shadow:0 26px 60px rgba(15,23,42,.28);
+  background-position:100% 100%;
+}
+
+/* STATS */
+.stats{
+  display:flex;
+  justify-content:space-around;
+  text-align:center;
+  flex-wrap:wrap;
+  gap:28px;
+}
+.stat-item{
+  padding:18px 30px;
+  border-radius:26px;
+  background:rgba(255,255,255,.95);
+  box-shadow:0 14px 32px rgba(148,163,184,.3);
+  min-width:180px;
+  transition:transform .3s ease;
+}
+.stat-item:hover{
+  transform:translateY(-5px);
+}
+.number{
+  font-size:58px;
+  font-weight:800;
+  background:linear-gradient(120deg,var(--blue),var(--green));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.stat-item p{
+  margin:4px 0 0;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:13px;
+  color:#6b7280;
+}
+
+/* BUTTON */
+button.main{
+  padding:18px 52px;
+  border:none;
+  border-radius:45px;
+  background:linear-gradient(90deg,var(--saffron),var(--green));
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  transition:transform .35s ease, box-shadow .35s ease, filter .35s ease;
+  box-shadow:0 18px 35px rgba(248,113,22,.4);
+  font-weight:600;
+}
+button.main:hover{
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:0 26px 55px rgba(248,113,22,.6);
+  filter:brightness(1.05);
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.55);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:30;
+  backdrop-filter:blur(4px);
+}
+.modal-box{
+  background:linear-gradient(135deg,#ffffff,#eef2ff);
+  padding:55px;
+  border-radius:30px;
+  max-width:560px;
+  text-align:center;
+  box-shadow:0 30px 80px rgba(15,23,42,.45);
+  animation:modalSlide 0.3s ease;
+}
+@keyframes modalSlide{
+  from{opacity:0;transform:scale(0.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* FOOTER */
+.footer{
+  background:linear-gradient(135deg,#ffedd5,#dbeafe,#bbf7d0);
+  padding:60px 20px;
+  margin-top:100px;
+  text-align:center;
+  border-top-left-radius:40px;
+  border-top-right-radius:40px;
+  box-shadow:0 -20px 50px rgba(15,23,42,.22);
+}
+.footer h3{
+  font-size:34px;
+  font-weight:700;
+  background:linear-gradient(90deg,var(--saffron),var(--blue),var(--green));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  margin-bottom:15px;
+}
+.footer p{
+  font-size:17px;
+  line-height:1.8;
+  color:#374151;
+}
+.footer-icons{
+  margin:30px 0;
+  font-size:34px;
+}
+.footer-icons span{
+  margin:0 12px;
+  display:inline-block;
+  transition:.4s ease;
+  cursor:pointer;
+}
+.footer-icons span:hover{
+  transform:translateY(-10px) scale(1.3);
+}
+.footer-bottom{
+  margin-top:25px;
+  font-size:15px;
+}
+.footer-bottom strong{color:var(--blue);}
+.footer-bottom p{margin-top:5px;}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+  .nav-inner{padding:10px 16px;}
+  .nav-links{display:none;}
+  .hero{
+    padding-top:110px;
+  }
+  .hero h1{
+    font-size:40px;
+  }
+  section{
+    margin:24px 16px 70px;
+    padding:28px 22px 32px;
+  }
+  .stats{
+    gap:18px;
+  }
+  .stat-item{
+    width:100%;
+  }
+  .music-btn{
+    top:12px;
+    right:12px;
+    padding:6px 14px;
+    font-size:12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="flag-overlay"></div>
+
+<!-- FLOATING BLOBS -->
+<div class="blob one"></div>
+<div class="blob two"></div>
+<div class="blob three"></div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-badge">🇮🇳</div>
+      <span>National Integrity</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#unity">Unity</a>
+      <a href="#india">India</a>
+      <a href="#youth">Youth</a>
+    </nav>
+  </div>
+</header>
+
+<!-- MUSIC (uses your local music.mp3 file) -->
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg" />
+</audio>
+<button id="musicBtn" class="music-btn" onclick="toggleMusic()">
+  <span class="music-btn-icon">🎵</span>
+  <span class="label">Play Music</span>
+</button>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-pill">
+      🤍 Unity • 🤝 Respect • 🌈 Diversity
+    </div>
+    <h1>National Integrity</h1>
+    <p>
+      A gentle harmony of cultures, values, and people —
+      united by respect, trust, and shared responsibility.
+    </p>
+    <div class="hero-sub">Together we rise as one nation.</div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<section id="unity">
+  <h2>Unity in Diversity</h2>
+  <p>
+    India's strength lies in peaceful coexistence.
+    Different traditions blend together,
+    forming a single national identity rooted in integrity.
+  </p>
+  <div class="grid">
+    <div class="card">
+      <h3>Cultural Harmony</h3>
+      <p>Every culture adds beauty to our shared story, creating a vibrant national mosaic.</p>
+    </div>
+    <div class="card">
+      <h3>Social Balance</h3>
+      <p>Equality and empathy build trust between communities and generations.</p>
+    </div>
+    <div class="card">
+      <h3>Mutual Respect</h3>
+      <p>Respect for differences sustains unity in thought, action, and purpose.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 -->
+<section id="india">
+  <h2>India at a Glance</h2>
+  <div class="stats">
+    <div class="stat-item">
+      <div class="number" data-target="28">0</div>
+      <p>States</p>
+    </div>
+    <div class="stat-item">
+      <div class="number" data-target="22">0</div>
+      <p>Languages</p>
+    </div>
+    <div class="stat-item">
+      <div class="number" data-target="130">0</div>
+      <p>Crore Citizens</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 -->
+<section id="youth">
+  <h2>Role of Youth</h2>
+  <p>
+    Youth protect national integrity through compassion,
+    innovation, responsibility, and ethical leadership.
+  </p>
+  <button class="main" onclick="openPledge()">Integrity Pledge</button>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="pledge">
+  <div class="modal-box">
+    <h2>National Integrity Pledge</h2>
+    <p>
+      I pledge to respect diversity,
+      uphold unity,
+      and contribute positively to my nation.
+    </p>
+    <button class="main" onclick="closePledge()">I Pledge</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    <h3>🌸 National Integrity 🌸</h3>
+    <p>Unity • Respect • Responsibility • Harmony<br />Together we build a stronger nation 🇮🇳</p>
+    <div class="footer-icons">
+      <span>🤝</span>
+      <span>🌍</span>
+      <span>❤️</span>
+      <span>🕊️</span>
+      <span>✨</span>
+    </div>
+    <div class="footer-bottom">
+      <p>💡 Designed with creativity & passion<br /></p>
+      <p class="copyright">© 2026 | Made by <strong>sakshi shinde</strong> 💖</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* SCROLL REVEAL */
+document.querySelectorAll("section").forEach(sec=>{
+  window.addEventListener("scroll",()=>{
+    if(sec.getBoundingClientRect().top < window.innerHeight-120){
+      sec.classList.add("show");
+    }
+  });
+});
+
+/* COUNTERS */
+document.querySelectorAll(".number").forEach(num=>{
+  const update=()=>{
+    const t=+num.dataset.target;
+    const c=+num.innerText;
+    if(c<t){
+      num.innerText=c+1;
+      requestAnimationFrame(update);
+    }
+  };
+  update();
+});
+
+/* MUSIC */
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+let musicPlaying = false;
+
+function setMusicButtonState(){
+  if(!musicBtn) return;
+  const label = musicBtn.querySelector(".label");
+  if(musicPlaying){
+    musicBtn.classList.add("playing");
+    if(label) label.textContent = "Pause Music";
+  }else{
+    musicBtn.classList.remove("playing");
+    if(label) label.textContent = "Play Music";
+  }
+}
+
+function toggleMusic(){
+  if(!music) return;
+  if(music.paused){
+    music.play().then(()=>{
+      musicPlaying = true;
+      setMusicButtonState();
+    }).catch(err=>{
+      alert("Unable to play music. Please check that 'music.mp3' is in the same folder and is a valid MP3 file.");
+      console.error(err);
+    });
+  }else{
+    music.pause();
+    musicPlaying = false;
+    setMusicButtonState();
+  }
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  if(music){ music.volume = 0.4; }
+  setMusicButtonState();
+});
+
+/* MODAL */
+function openPledge(){document.getElementById("pledge").style.display="flex"}
+function closePledge(){document.getElementById("pledge").style.display="none"}
+</script>
+
+</body>
+</html>
